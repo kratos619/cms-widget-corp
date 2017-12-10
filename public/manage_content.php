@@ -10,15 +10,8 @@ require_once("../include/functions.php"); ?>
 	<div id="navigation">
 		<ul class="subjects">
 			<?php
-			// 2. perform quey
-			$query = "select * ";
-			$query .= "from subjects ";
-			$query .= "where visible = 1 ";
-			$query .= "order by position ASC";
-			$subject_set = mysqli_query($connection, $query);
-			  // test if there was a error
-				// calling custome functio confirm_query
-			confirm_query($subject_set);
+			// print subject by creating function see function.php
+			$subject_set =  find_all_subjects();
 			?>
       <?php
       //3. return data if any key are <integ></integ>er  mysqli_fetch_row
@@ -30,16 +23,8 @@ require_once("../include/functions.php"); ?>
       <li>
 				 <?php echo $subject["menu_name"]; ?>
 				 <?php
-	 			// 2. perform quey
-	 			$query = "select * ";
-				$query .= "from pages ";
-				$query .= "where visible = 1 ";
-				$query .="and subject_id = {$subject["id"]} ";
-				$query .= "order by position ASC";
-	 			$page_set = mysqli_query($connection, $query);
-	 			  // test if there was a error
-	 				// calling custome functio confirm_query
-	 			confirm_query($page_set);
+				 // function find pages belong to subjects subjects["id"] is belong to subjects table 
+				 $page_set = find_pages_for_subjects($subject["id"]);
 	 			?>
 				 <ul class="pages">
 					 <?php

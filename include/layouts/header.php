@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Admin</title>
+		<title>Widget Corp</title>
 	<link rel="stylesheet" href="stylesheet/public.css">
 	</head>
 	<body>

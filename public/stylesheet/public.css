@@ -57,7 +57,7 @@ a:hover{
 #navigation a:hover {
 	color: #ffffff;
 }
-ul .subjects{
+.subjects{
 	margin: 1em 0;
 	padding-left: 1em;
 	list-style: square;

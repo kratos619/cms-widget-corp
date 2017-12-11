@@ -8,11 +8,11 @@ function confirm_query($result_set){
 
 //function to display all subjects
 function find_all_subjects(){
-global $connection;
+ global $connection;
   // 2. perform quey
   $query = "select * ";
   $query .= "from subjects ";
-  $query .= "where visible = 1 ";
+//  $query .= "where visible = 1 ";
   $query .= "order by position ASC";
   $subject_set = mysqli_query($connection, $query);
     // test if there was a error
@@ -24,11 +24,13 @@ global $connection;
 //function to display all pages
 function find_pages_for_subjects($subject_id){
   global $connection;
+
+  $safe_subject_id = mysqli_real_escape_string($connection,$subject_id);
   // 2. perform quey
   $query = "select * ";
   $query .= "from pages ";
   $query .= "where visible = 1 ";
-  $query .="and subject_id = {$subject_id} ";
+  $query .="and subject_id = {$safe_subject_id} ";
   $query .= "order by position ASC";
   $page_set = mysqli_query($connection, $query);
     // test if there was a error
@@ -37,6 +39,49 @@ function find_pages_for_subjects($subject_id){
   return $page_set;
 }
 
+
+function find_subject_by_id($subject_id){
+  global $connection;
+  // safe from sql injection
+  $safe_subject_id = mysqli_real_escape_string($connection,$subject_id);
+   // 2. perform quey
+   $query = "select * ";
+   $query .= "from subjects ";
+   $query .= "where id = {$safe_subject_id} ";
+   // limit one select one at a time one operation at a time
+   $query .= "LIMIT 1";
+   $subject_set = mysqli_query($connection, $query);
+     // test if there was a error
+     // calling custome functio confirm_query
+   confirm_query($subject_set);
+   if($subject  = mysqli_fetch_assoc($subject_set)){
+     return $subject;
+   }else{
+      return null;
+   }
+
+}
+function find_page_by_id($page_id){
+  global $connection;
+  // safe from sql injection
+  $safe_page_id = mysqli_real_escape_string($connection,$page_id);
+   // 2. perform quey
+   $query = "select * ";
+   $query .= "from pages ";
+   $query .= "where id = {$safe_page_id} ";
+   // limit one select one at a time one operation at a time
+   $query .= "LIMIT 1";
+   $page_set = mysqli_query($connection, $query);
+     // test if there was a error
+     // calling custome functio confirm_query
+   confirm_query($page_set);
+   if($subject  = mysqli_fetch_assoc($page_set)){
+     return $subject;
+   }else{
+      return null;
+   }
+
+}
 //function navigation
 //the currently selected subect id
 // currently selected page id

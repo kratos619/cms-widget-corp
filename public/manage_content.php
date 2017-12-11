@@ -15,19 +15,24 @@ if(isset($_GET["subject"])){
 	$selected_page_id = $_GET["page"];
 }
  ?>
-
 <div id="main">
 	<div id="navigation">
 		<?php
-		//function navigation to display function 
+		//function navigation to display function
 		echo navigation($selected_subject_id,$selected_page_id); ?>
 	</div>
 	<div id="page">
 		<h2>Manage Content</h2>
-		<?php
-		echo $selected_subject_id;
-		echo $selected_page_id;
-		 ?>
+		<?php if($selected_subject_id){ ?>
+			<?php $current_subject = find_subject_by_id($selected_subject_id); ?>
+		Menu Name : <?php echo $current_subject["menu_name"]; ?><br/>
+	<?php } elseif ($selected_page_id) { ?>
+		<?php $current_page = find_page_by_id($selected_page_id); ?>
+		Page : <?php echo $current_page["menu_name"]; ?>
+
+	<?php }else { ?>
+		<h3>plsese select subject OR page</h3>
+	<?php } ?>
 	</div>
 </div>
 <?php include("../include/layouts/footer.php"); ?>

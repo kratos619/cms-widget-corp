@@ -82,6 +82,28 @@ function find_page_by_id($page_id){
    }
 
 }
+
+function find_selected_page(){
+  global $current_subject;
+  global $current_page;
+global  $selected_page_id ;
+  global $selected_subject_id;
+
+  if(isset($_GET["subject"])){
+  	$selected_subject_id = $_GET["subject"];
+  	$current_subject = find_subject_by_id($selected_subject_id);
+  }elseif(isset($_GET["page"])){
+  	$selected_page_id = $_GET["page"];
+  	$current_page = find_page_by_id($selected_page_id);
+  }else{
+    $selected_page_id  = null;
+    $selected_subject_id  = null;
+    $current_page = null;
+    $current_subject = null;
+
+  }
+
+}
 //function navigation
 //the currently selected subect id
 // currently selected page id

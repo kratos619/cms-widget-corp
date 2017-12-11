@@ -5,16 +5,7 @@ require_once("../include/db_connection.php"); ?>
 // include once tym
 require_once("../include/functions.php"); ?>
 <?php include("../include/layouts/header.php"); ?>
-
-<?php
-$selected_page_id  = null;
-$selected_subject_id  = null;
-if(isset($_GET["subject"])){
-	$selected_subject_id = $_GET["subject"];
-}elseif(isset($_GET["page"])){
-	$selected_page_id = $_GET["page"];
-}
- ?>
+<?php find_selected_page();?>
 <div id="main">
 	<div id="navigation">
 		<?php
@@ -22,12 +13,12 @@ if(isset($_GET["subject"])){
 		echo navigation($selected_subject_id,$selected_page_id); ?>
 	</div>
 	<div id="page">
-		<h2>Manage Content</h2>
-		<?php if($selected_subject_id){ ?>
-			<?php $current_subject = find_subject_by_id($selected_subject_id); ?>
+<h2>Welcome</h2>
+		<?php if($current_subject){ ?>
+			<h2>Manage Content</h2>
 		Menu Name : <?php echo $current_subject["menu_name"]; ?><br/>
-	<?php } elseif ($selected_page_id) { ?>
-		<?php $current_page = find_page_by_id($selected_page_id); ?>
+	<?php } elseif ($current_page) { ?>
+		<h2>Manage Page</h2>
 		Page : <?php echo $current_page["menu_name"]; ?>
 
 	<?php }else { ?>

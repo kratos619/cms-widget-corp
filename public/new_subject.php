@@ -23,6 +23,7 @@ require_once("../include/functions.php"); ?>
 		<select class="" name="position">
 			<?php
 			$subject_set = find_all_subjects();
+			// mysqli_num_rows retun number of rows
 			$subject_count = mysqli_num_rows($subject_set);
 				for ($count=1; $count <= ($subject_count + 1) ; $count++) {
 					echo '<option value="'. $count . '">' . $count . '</option>';
@@ -35,7 +36,7 @@ require_once("../include/functions.php"); ?>
     <input type="radio" name="visible" value="0"> No &nbsp;
     <input type="radio" name="visible" value="1"> Yes
   </p>
-  <input type="submit" name="" value="Create Subject" />
+  <input type="submit" name="submit" value="Create Subject" />
 </form>
 <br>
 <a href="manage_content.php"> Cancle</a>

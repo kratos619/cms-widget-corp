@@ -1,4 +1,16 @@
 <?php
+function redirect_to($new_location){
+  header("Location: ". $new_location);
+  exit;
+}
+
+// work on be half of mysqli_real_escape_string()
+function mysql_prep($string){
+  global $connection;
+  $escaped_strig = mysqli_real_escape_string($connection,$string);
+return $escaped_strig;
+}
+
 // function to test query error
 function confirm_query($result_set){
   if(!$result_set){

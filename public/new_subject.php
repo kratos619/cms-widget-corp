@@ -1,3 +1,4 @@
+<?php require_once("../include/session.php"); ?>
 <?php
 // include once tym adding db-connection
 require_once("../include/db_connection.php"); ?>
@@ -13,6 +14,9 @@ require_once("../include/functions.php"); ?>
 		echo navigation($selected_subject_id,$selected_page_id); ?>
 	</div>
 	<div id="page">
+<?php
+echo message();
+	?>
 <h2>Create Subject</h2>
 <form action="create_subject.php" method="post">
   <p>Menu Name:

@@ -1,3 +1,4 @@
+<?php require_once("../include/session.php"); ?>
 <?php
 // include once tym adding db-connection
 require_once("../include/db_connection.php"); ?>
@@ -16,6 +17,9 @@ require_once("../include/functions.php"); ?>
 	</div>
 	<div id="page">
 <h2>Welcome</h2>
+<?php
+echo message();
+	?>
 		<?php if($current_subject){ ?>
 			<h2>Manage Content</h2>
 		Menu Name : <?php echo $current_subject["menu_name"]; ?><br/>

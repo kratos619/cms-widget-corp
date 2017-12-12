@@ -1,3 +1,5 @@
+<?php require_once("../include/session.php"); ?>
+<?php session_start(); ?>
 <?php
 // include once tym adding db-connection
 require_once("../include/db_connection.php"); ?>
@@ -7,7 +9,6 @@ require_once("../include/functions.php"); ?>
 
 <?php
 if(isset($_POST['submit'])){
-
   $menu_name =mysql_prep( $_POST["menu_name"]);
   $position = (int) $_POST["position"];
   $visible = (int) $_POST["visible"];
@@ -22,14 +23,15 @@ if(isset($_POST['submit'])){
   $result = mysqli_query($connection, $query);
   // test if there was a error
   if($result){
-
+    $_SESSION["message"] = "Suject Created";
       redirect_to("manage_content.php");
   }else{
+    //failure
+    $_SESSION["message"] = "Suject Creation failed";
       redirect_to("new_subject.php");
   }
 }
 else{
-
   redirect_to("new_subject.php");
 }
 

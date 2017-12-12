@@ -11,6 +11,8 @@ require_once("../include/functions.php"); ?>
 		<?php
 		//function navigation to display function
 		echo navigation($selected_subject_id,$selected_page_id); ?>
+<br/>
+<a href="new_subject.php"> + Add Subject</a>
 	</div>
 	<div id="page">
 <h2>Welcome</h2>

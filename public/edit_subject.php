@@ -100,7 +100,8 @@ if(!empty($message)){
   <input type="submit" name="submit" value="Edit Subject" />
 </form>
 <br>
-<a href="manage_content.php"> Cancle</a>
+<a href="manage_content.php"> Cancle </a>
+<a onclick="return confirm('are you sure');" href="delete_subject.php?subject=<?php echo $current_subject["id"]; ?>"> Delete Subject</a>
 	</div>
 </div>
 <?php include("../include/layouts/footer.php"); ?>

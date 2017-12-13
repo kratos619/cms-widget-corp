@@ -9,6 +9,8 @@ require_once("../include/functions.php"); ?>
 <?php find_selected_page();?>
 <div id="main">
 	<div id="navigation">
+<br>
+<a href="admin.php">&laquo; Main Menu</a> <br>
 		<?php
 		//function navigation to display function
 		echo navigation($selected_subject_id,$selected_page_id); ?>
@@ -22,12 +24,22 @@ echo message();
 	?>
 		<?php if($current_subject){ ?>
 			<h2>Manage Content</h2>
-		Menu Name : <?php echo $current_subject["menu_name"]; ?><br/>
-		<a href="edit_subject.php?subject=<?php echo $current_subject["id"]; ?>">Edit Subject</a>
+		Menu Name : <?php echo htmlentities($current_subject["menu_name"]); ?><br/>
+		Position : <?php echo htmlentities($current_subject["position"]); ?><br/>
+		Visible : <?php echo htmlentities($current_subject["visible"] == 1 ? 'Yes' : 'No'); ?> <br>
+		<a href="edit_subject.php?subject=<?php echo urlencode($current_subject["id"]); ?>">Edit Subject</a>
 
 	<?php } elseif ($current_page) { ?>
 		<h2>Manage Page</h2>
-		Page : <?php echo $current_page["menu_name"]; ?>
+		Page : <?php echo htmlentities($current_page["menu_name"]); ?>
+		Position : <?php echo htmlentities($current_page["position"]); ?><br/>
+		Visible : <?php echo htmlentities($current_page["visible"] == 1 ? 'Yes' : 'No'); ?> <br>
+		Content: <br>
+		<div class="view-content">
+			 <?php echo htmlentities($current_page["content"]); ?><br/>
+
+
+		</div>
 	<?php }else { ?>
 		<h3>plsese select subject OR page</h3>
 	<?php } ?>

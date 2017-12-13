@@ -26,7 +26,9 @@ function from_errors($errors = array()){
 	 $output .= "plese fix the following errors";
 	 $output .= "<ul>";
 	 foreach ($errors as $key => $error) {
-		 $output .= "<li>{$error}</li>";
+		 $output .= "<li>";
+     $output .= htmlentities($error);
+     $output .= "</li>";
 	 }
 	 $output .= "</ul>";
 	 $output .= "</div>";
@@ -156,7 +158,7 @@ function navigation($subject_id,$page_id){
 			$output .= '<a href="manage_content.php?subject=';
 			$output .= urlencode($subject["id"]);
 			$output .=  '">';
-				$output .= $subject["menu_name"];
+				$output .= htmlentities($subject["menu_name"]);
 			$output .='</a>';
        // function find pages belong to subjects subjects["id"] is belong to subjects table
        $page_set = find_pages_for_subjects($subject["id"]);
@@ -172,7 +174,7 @@ function navigation($subject_id,$page_id){
 							$output .= '<a href="manage_content.php?page=';
 							$output .= urlencode($page["id"]);
 							$output .= 	'">';
-								$output .= $page["menu_name"];
+								$output .= htmlentities($page["menu_name"]);
 							$output .= '</a>';
 							$output .= '</li>';
       }

@@ -90,3 +90,11 @@ ul .pages{
 .view-content{
 	margin:1em; padding: 1em; border: 1px solid #999;
 }
+.error{
+	color:  red;
+	border: 2px solid red;
+	margin:  1em 0; padding:  1em;
+}
+.error ul{
+	padding-left : 2em;
+}

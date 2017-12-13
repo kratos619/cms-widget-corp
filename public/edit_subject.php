@@ -31,7 +31,7 @@ $id = $current_subject["id"];
   $query .= "limit 1";
   $result = mysqli_query($connection, $query);
   // test if there was a error
-  if($result && mysqli_affected_rows($connection) == 1){
+  if($result && mysqli_affected_rows($connection) >= 0){
     $_SESSION["message"] = "Subject Updated";
       redirect_to("manage_content.php");
   }else{
@@ -61,7 +61,7 @@ require_once("../include/validation_functions.php"); ?>
 <?php
 // displaying successfull or not message just use variable not session
 if(!empty($message)){
-  echo "<div class=\"message\">" . $message . "</div>";
+  echo "<div class=\"message\">" . htmlentities($message) . "</div>";
 }
 	?>
 	<?php
@@ -70,10 +70,10 @@ if(!empty($message)){
 	echo from_errors($errors);
 	?>
 
-<h2>Edit Subject: <?php echo $current_subject["menu_name"]; ?> </h2>
-<form action="edit_subject.php?subject=<?php echo $current_subject["id"]; ?>" method="post">
+<h2>Edit Subject: <?php echo htmlentities($current_subject["menu_name"]); ?> </h2>
+<form action="edit_subject.php?subject=<?php echo urlencode($current_subject["id"]); ?>" method="post">
   <p>Edit Name:
-  <input type="text" name="menu_name" value="<?php echo  $current_subject["menu_name"]; ?>">
+  <input type="text" name="menu_name" value="<?php echo  htmlentities($current_subject["menu_name"]); ?>">
   </p>
   <p>
 		Position:
@@ -101,7 +101,7 @@ if(!empty($message)){
 </form>
 <br>
 <a href="manage_content.php"> Cancle </a>
-<a onclick="return confirm('are you sure');" href="delete_subject.php?subject=<?php echo $current_subject["id"]; ?>"> Delete Subject</a>
+<a onclick="return confirm('are you sure');" href="delete_subject.php?subject=<?php echo urlencode($current_subject["id"]); ?>"> Delete Subject</a>
 	</div>
 </div>
 <?php include("../include/layouts/footer.php"); ?>

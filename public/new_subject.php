@@ -15,8 +15,15 @@ require_once("../include/functions.php"); ?>
 	</div>
 	<div id="page">
 <?php
+// displaying successfull or not message
 echo message();
 	?>
+	<?php
+// displayig error messe
+	$errors =  errors();
+	echo from_errors($errors);
+	?>
+
 <h2>Create Subject</h2>
 <form action="create_subject.php" method="post">
   <p>Menu Name:

@@ -18,6 +18,23 @@ function confirm_query($result_set){
   }
 }
 
+
+function from_errors($errors = array()){
+	$output = "";
+	if(!empty($errors)){
+	 $output .= "<div class=\"error\">";
+	 $output .= "plese fix the following errors";
+	 $output .= "<ul>";
+	 foreach ($errors as $key => $error) {
+		 $output .= "<li>{$error}</li>";
+	 }
+	 $output .= "</ul>";
+	 $output .= "</div>";
+ }
+ return $output;
+}
+
+
 //function to display all subjects
 function find_all_subjects(){
  global $connection;

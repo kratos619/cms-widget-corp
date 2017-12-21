@@ -27,7 +27,7 @@ echo message();
 		Menu Name : <?php echo htmlentities($current_subject["menu_name"]); ?><br/>
 		Position : <?php echo htmlentities($current_subject["position"]); ?><br/>
 		Visible : <?php echo htmlentities($current_subject["visible"] == 1 ? 'Yes' : 'No'); ?> <br>
-		<a href="edit_subject.php?subject=<?php echo urlencode($current_subject["id"]); ?>">Edit Subject</a><br>
+		<a href="edit_subject.php?page=<?php echo urlencode($current_subject["id"]); ?>">Edit Subject</a><br>
 
 <br>
 <h2>Pages In the Subjects</h2>
@@ -59,7 +59,7 @@ echo message();
 		</div>
 		<br>
 		<br>
-		<a href="edit_page.php?page=<?php urlencode($current_page['id']);?>">Edit Page</a>
+		<a href="edit_page.php?page=<?php echo urlencode($current_page["id"]);?>">Edit Page</a>
 	<?php }else { ?>
 		<h3>plsese select subject OR page</h3>
 	<?php } ?>

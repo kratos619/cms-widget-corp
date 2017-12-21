@@ -13,7 +13,7 @@ require_once("../include/functions.php"); ?>
 <a href="admin.php">&laquo; Main Menu</a> <br>
 		<?php
 		//function navigation to display function
-		echo navigation($selected_subject_id,$selected_page_id); ?>
+		echo navigation($current_subject,$current_page); ?>
 <br/>
 <a href="new_subject.php"> + Add Subject</a>
 	</div>
@@ -27,8 +27,27 @@ echo message();
 		Menu Name : <?php echo htmlentities($current_subject["menu_name"]); ?><br/>
 		Position : <?php echo htmlentities($current_subject["position"]); ?><br/>
 		Visible : <?php echo htmlentities($current_subject["visible"] == 1 ? 'Yes' : 'No'); ?> <br>
-		<a href="edit_subject.php?subject=<?php echo urlencode($current_subject["id"]); ?>">Edit Subject</a>
+		<a href="edit_subject.php?subject=<?php echo urlencode($current_subject["id"]); ?>">Edit Subject</a><br>
 
+<br>
+<h2>Pages In the Subjects</h2>
+<ul>
+	<?php
+	$subject_pages = find_pages_for_subjects($current_subject["id"]);
+	while($page = mysqli_fetch_assoc($subject_pages)){
+		echo "<li>";
+		$safe_page_id = urlencode($page["id"]);
+		echo "<a href=\"manage_content.php?page={$safe_page_id}\">";
+		echo htmlentities($page["menu_name"]);
+		echo "</a>";
+		echo "</li>";
+	}
+
+	  ?>
+
+</ul>
+<br>
+	<a href="new_page.php?subject=<?php echo urlencode($current_subject["id"]);?>">+ Add New Page to This Subject</a>
 	<?php } elseif ($current_page) { ?>
 		<h2>Manage Page</h2>
 		Page : <?php echo htmlentities($current_page["menu_name"]); ?>
@@ -37,9 +56,10 @@ echo message();
 		Content: <br>
 		<div class="view-content">
 			 <?php echo htmlentities($current_page["content"]); ?><br/>
-
-
 		</div>
+		<br>
+		<br>
+		<a href="edit_page.php?page=<?php urlencode($current_page['id']);?>">Edit Page</a>
 	<?php }else { ?>
 		<h3>plsese select subject OR page</h3>
 	<?php } ?>

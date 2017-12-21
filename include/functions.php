@@ -55,7 +55,6 @@ function find_all_subjects(){
 //function to display all pages
 function find_pages_for_subjects($subject_id){
   global $connection;
-
   $safe_subject_id = mysqli_real_escape_string($connection,$subject_id);
   // 2. perform quey
   $query = "select * ";
@@ -69,7 +68,6 @@ function find_pages_for_subjects($subject_id){
   confirm_query($page_set);
   return $page_set;
 }
-
 
 function find_subject_by_id($subject_id){
   global $connection;
@@ -92,6 +90,7 @@ function find_subject_by_id($subject_id){
    }
 
 }
+
 function find_page_by_id($page_id){
   global $connection;
   // safe from sql injection

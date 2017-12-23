@@ -7,9 +7,10 @@ require_once("../include/db_connection.php"); ?>
 require_once("../include/functions.php"); ?>
 <?php find_selected_page();?>
 
-<?php if(!$selected_subject_id){
+<?php if(!$current_subject["id"]){
   redirect_to("manage_content.php");
-} ?>
+}
+?>
 
 <?php
 if(isset($_POST['submit'])){
@@ -26,7 +27,7 @@ $id = $current_subject["id"];
   $query = "update subjects SET ";
   $query .= " menu_name = '{$menu_name}', ";
   $query .= "position = '{$position}', ";
-   $query .= "visible = '{$visible}'";
+   $query .= "visible = {$visible}";
   $query .= " where id = {$id} ";
   $query .= "limit 1";
   $result = mysqli_query($connection, $query);
@@ -49,7 +50,10 @@ $id = $current_subject["id"];
 <?php
 // include validation function file
 require_once("../include/validation_functions.php"); ?>
+<?php $layout_context = "admin"; ?>
 <?php include("../include/layouts/header.php"); ?>
+
+
 
 <div id="main">
 	<div id="navigation">

@@ -5,6 +5,7 @@ require_once("../include/db_connection.php"); ?>
 <?php
 // include once tym
 require_once("../include/functions.php"); ?>
+<?php $layout_context = "admin"; ?>
 <?php include("../include/layouts/header.php"); ?>
 <?php find_selected_page();?>
 <div id="main">
@@ -27,7 +28,7 @@ echo message();
 		Menu Name : <?php echo htmlentities($current_subject["menu_name"]); ?><br/>
 		Position : <?php echo htmlentities($current_subject["position"]); ?><br/>
 		Visible : <?php echo htmlentities($current_subject["visible"] == 1 ? 'Yes' : 'No'); ?> <br>
-		<a href="edit_subject.php?page=<?php echo urlencode($current_subject["id"]); ?>">Edit Subject</a><br>
+		<a href="edit_subject.php?subject=<?php echo urlencode($current_subject["id"]); ?>">Edit Subject</a><br>
 
 <br>
 <h2>Pages In the Subjects</h2>

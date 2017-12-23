@@ -36,14 +36,49 @@ function from_errors($errors = array()){
  return $output;
 }
 
+function find_all_admins(){
+  global $connection;
+   // 2. perform quey
+   $query = "select * ";
+   $query .= "from admins ";
+   $query .= "order by username ASC";
+   $admin_set = mysqli_query($connection, $query);
+     // test if there was a error
+     // calling custome functio confirm_query
+   confirm_query($admin_set);
+   return $admin_set;
+}
+
+function find_admin_by_id($admin_id){
+  global $connection;
+  // safe from sql injection
+  $safe_admin_id = mysqli_real_escape_string($connection,$admin_id);
+   // 2. perform quey
+   $query = "select * ";
+   $query .= "from admins ";
+   $query .= "where id = {$safe_admin_id} ";
+   // limit one select one at a time one operation at a time
+   $query .= "LIMIT 1";
+   $admin_set = mysqli_query($connection, $query);
+     // test if there was a error
+     // calling custome functio confirm_query
+   confirm_query($admin_set);
+   if($admin  = mysqli_fetch_assoc($admin_set)){
+     return $admin;
+   }else{
+      return null;
+   }
+}
 
 //function to display all subjects
-function find_all_subjects(){
+function find_all_subjects($public = true){
  global $connection;
   // 2. perform quey
   $query = "select * ";
   $query .= "from subjects ";
-//  $query .= "where visible = 1 ";
+  if($public){
+    $query .= "where visible = 1 ";
+  }
   $query .= "order by position ASC";
   $subject_set = mysqli_query($connection, $query);
     // test if there was a error
@@ -53,14 +88,16 @@ function find_all_subjects(){
 }
 
 //function to display all pages
-function find_pages_for_subjects($subject_id){
+function find_pages_for_subjects($subject_id,$public = true){
   global $connection;
   $safe_subject_id = mysqli_real_escape_string($connection,$subject_id);
   // 2. perform quey
   $query = "select * ";
   $query .= "from pages ";
-  $query .= "where visible = 1 ";
-  $query .="and subject_id = {$safe_subject_id} ";
+  $query .="where subject_id = {$safe_subject_id} ";
+  if($public){
+    $query .= "and visible = 1 ";
+  }
   $query .= "order by position ASC";
   $page_set = mysqli_query($connection, $query);
     // test if there was a error
@@ -88,7 +125,6 @@ function find_subject_by_id($subject_id){
    }else{
       return null;
    }
-
 }
 
 function find_page_by_id($page_id){
@@ -140,7 +176,7 @@ global  $selected_page_id ;
 function navigation($subject_id,$page_id){
   $output = '<ul class="subjects">';
     // print subject by creating function see function.php
-    $subject_set =  find_all_subjects();
+    $subject_set =  find_all_subjects(false);
     //3. return data if any key are <integ></integ>er  mysqli_fetch_row
     // key are coloumn result are in an associative array mysqli_fetch_assoc
     // result in either or both typer of arrays mysqli_fetch_assoc
@@ -160,7 +196,7 @@ function navigation($subject_id,$page_id){
 				$output .= htmlentities($subject["menu_name"]);
 			$output .='</a>';
        // function find pages belong to subjects subjects["id"] is belong to subjects table
-       $page_set = find_pages_for_subjects($subject["id"]);
+       $page_set = find_pages_for_subjects($subject["id"],false);
 				$output .= '<ul class="pages">';
          while($page = mysqli_fetch_assoc($page_set)){
             $output .= "<li";
@@ -171,6 +207,57 @@ function navigation($subject_id,$page_id){
      $output .= ">";
             }
 							$output .= '<a href="manage_content.php?page=';
+							$output .= urlencode($page["id"]);
+							$output .= 	'">';
+								$output .= htmlentities($page["menu_name"]);
+							$output .= '</a>';
+							$output .= '</li>';
+      }
+							 mysqli_free_result($page_set);
+				$output .= '</ul>';
+				$output .= '</li>';
+
+    }
+          // 4 reslese retun data
+     mysqli_free_result($subject_set);
+$output .= '</ul>';
+return $output;
+}
+
+function public_navigation($subject_id,$page_id){
+  $output = '<ul class="subjects">';
+    // print subject by creating function see function.php
+    $subject_set =  find_all_subjects();
+    //3. return data if any key are <integ></integ>er  mysqli_fetch_row
+    // key are coloumn result are in an associative array mysqli_fetch_assoc
+    // result in either or both typer of arrays mysqli_fetch_assoc
+    //while($row = mysqli_fetch_row($result)){
+    while($subject = mysqli_fetch_assoc($subject_set)){
+        $output .= "<li";
+        if($subject["id"] == $subject_id){
+        $output .= " class=\"selected\"";
+        }
+        else{
+        $output .= ">";
+        }
+
+			$output .= '<a href="index.php?subject=';
+			$output .= urlencode($subject["id"]);
+			$output .=  '">';
+				$output .= htmlentities($subject["menu_name"]);
+			$output .='</a>';
+       // function find pages belong to subjects subjects["id"] is belong to subjects table
+       $page_set = find_pages_for_subjects($subject["id"],false);
+				$output .= '<ul class="pages">';
+         while($page = mysqli_fetch_assoc($page_set)){
+            $output .= "<li";
+            if($page["id"] == $page_id){
+            $output .= " class=\"selected\"";
+            }
+            else{
+     $output .= ">";
+            }
+							$output .= '<a href="index.php?page=';
 							$output .= urlencode($page["id"]);
 							$output .= 	'">';
 								$output .= htmlentities($page["menu_name"]);

@@ -1,6 +1,7 @@
 <?php
 // include once tym
 require_once("../include/functions.php"); ?>
+<?php $layout_context = "admin"; ?>
 	<?php include("../include/layouts/header.php"); ?>
 	<div id="main">
 		<div id="navigation">

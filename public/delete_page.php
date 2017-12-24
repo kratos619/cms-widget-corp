@@ -7,6 +7,9 @@ require_once("../include/db_connection.php"); ?>
 require_once("../include/functions.php"); ?>
 
 <?php
+ confirm_logged_in();
+ ?>
+<?php
 $current_page = find_page_by_id($_GET["page"]);
  if(!$current_page){
 // page ID was missing or incvalid

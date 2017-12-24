@@ -5,6 +5,11 @@ require_once("../include/db_connection.php"); ?>
 <?php
 // include once tym
 require_once("../include/functions.php"); ?>
+
+<?php
+ confirm_logged_in();
+ ?>
+
 <?php $layout_context = "admin"; ?>
 <?php
 // include validation function file

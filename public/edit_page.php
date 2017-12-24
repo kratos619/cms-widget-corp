@@ -5,6 +5,11 @@ require_once("../include/db_connection.php"); ?>
 <?php
 // include once tym
 require_once("../include/functions.php"); ?>
+
+<?php
+ confirm_logged_in();
+ ?>
+
 <?php
 // include validation function file
 require_once("../include/validation_functions.php"); ?>

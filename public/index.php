@@ -15,6 +15,9 @@ require_once("../include/functions.php"); ?>
 		<?php
 		//function navigation to display function
 		echo public_navigation($current_subject,$current_page); ?>
+		<br>
+		<br>
+		<a href="login.php"> + Sign Up</a>
 <br/>
 
 	</div>

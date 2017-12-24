@@ -87,6 +87,29 @@ function find_all_subjects($public = true){
   return $subject_set;
 }
 
+function find_admin_by_username($username){
+  global $connection;
+  // safe from sql injection
+  $safe_username = mysqli_real_escape_string($connection,$username);
+   // 2. perform quey
+   $query = "select * ";
+   $query .= "from admins ";
+   $query .= "where username = '{$safe_username}' ";
+   // limit one select one at a time one operation at a time
+   $query .= "LIMIT 1";
+   $admin_set = mysqli_query($connection, $query);
+     // test if there was a error
+     // calling custome functio confirm_query
+   confirm_query($admin_set);
+   if($admin  = mysqli_fetch_assoc($admin_set)){
+     return $admin;
+   }else{
+      return null;
+   }
+}
+
+
+
 //function to display all pages
 function find_pages_for_subjects($subject_id,$public = true){
   global $connection;
@@ -311,6 +334,33 @@ if($hash === $existing_hash){
 }else {
   return false;
 }
+}
+
+function attempt_login($username,$password){
+$admin = find_admin_by_username($username);
+if($admin){
+  // found admin now check password
+  if(password_check($password,$admin["hashed_password"])){
+    //password mathch
+    return $admin;
+  }else{
+    // password not match
+    return false;
+  }
+} else{
+  // admin not found
+  return false;
+}
+}
+
+function logged_in(){
+  return isset($_SESSION['admin_id']);
+}
+
+function confirm_logged_in(){
+ if(!logged_in()){
+   redirect_to("login.php");
+ }
 }
 
 ?>

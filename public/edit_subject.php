@@ -5,6 +5,9 @@ require_once("../include/db_connection.php"); ?>
 <?php
 // include once tym
 require_once("../include/functions.php"); ?>
+<?php
+ confirm_logged_in();
+ ?>
 <?php find_selected_page();?>
 
 <?php if(!$current_subject["id"]){

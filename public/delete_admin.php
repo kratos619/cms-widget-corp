@@ -6,6 +6,9 @@ require_once("../include/db_connection.php"); ?>
 // include once tym
 require_once("../include/functions.php"); ?>
 
+<?php
+ confirm_logged_in();
+ ?>
 
 <?php
 $current_admin = find_admin_by_id($_GET["id"]);

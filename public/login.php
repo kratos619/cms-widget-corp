@@ -27,54 +27,44 @@ echo message();
 	echo from_errors($errors);
 	?>
 
-<h2>Create Admin</h2>
-<form action="new_admin.php" method="post">
+<h2>Login Admin</h2>
+<form action="login.php" method="post">
   <p>Username:
   <input type="text" name="username" value="">
   </p>
   <p>Password:
   <input type="password" name="hashed_password" value="">
   </p>
-	<input type="submit" name="submit" value="Create Admin" />
+	<input type="submit" name="submit" value="log in" />
 </form>
 <br>
-<a href="manage_content.php"> Cancle</a>
 	</div>
 </div>
 
 <?php
 if(isset($_POST['submit'])){
 
-  $username = mysql_prep( $_POST["username"]);
-
-	// this function is for password encryption
-  $password = password_encrypt( $_POST["hashed_password"]);
-
     // validation functions
   $required_fields = array( "username", "hashed_password");
   validate_presences($required_fields);
 
-  if(!empty($errors)){
-    $_SESSION["errors"] = $errors;
-    redirect_to("manage_admin.php");
-  }
+  if(empty($errors)){
 
-  // 2. perform quey
-  $query = "insert into admins (";
-  $query .= " username, hashed_password";
-  $query .= ") values (";
-  $query .= " '{$username}', '{$password}' ";
-  $query .= ")";
-  $result = mysqli_query($connection, $query);
-  // test if there was a error
-  if($result){
-    $_SESSION["message"] = "User Is Created";
-      redirect_to("manage_admin.php");
+	$username = $_POST["username"];
+	$password = $_POST["hashed_password"];
+
+$found_admin = attempt_login($username,$password);
+
+  if($found_admin){
+		$_SESSION["admin_id"]  = $found_admin["id"];
+		$_SESSION["username"]  = $found_admin["username"];
+      redirect_to("admin.php");
   }else{
     //failure
-    $_SESSION["message"] = "User Is Creation failed";
-      redirect_to("manage_admin.php");
+    $_SESSION["message"] = "Username/ Password not found";
+
   }
+}
 }
 else{
   //

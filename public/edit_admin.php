@@ -26,7 +26,7 @@ echo message();
 	$errors =  errors();
 	echo from_errors($errors);
 	?>
-  
+
 <?php $admin = find_admin_by_id("id") ?>
 
 <h2>Create Admin</h2>
@@ -52,7 +52,7 @@ if(isset($_POST['submit'])){
 
 $id = $admin["id"];
   $username = mysql_prep( $_POST["username"]);
-  $password = mysql_prep( $_POST["hashed_password"]);
+  $password = password_encrypt( $_POST["hashed_password"]);
 
 
   // 2. perform quey

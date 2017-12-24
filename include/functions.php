@@ -275,4 +275,42 @@ $output .= '</ul>';
 return $output;
 }
 
+// password encrypion function
+
+function password_encrypt($password){
+  $hash_format = "$2y$10$"; // tells phph to use blowfish with "cost" of 10
+$salt_length  = 22; // blowfish salts should be 22 character or moree
+ $salt = generate_salt($salt_length);
+ $format_and_salt = $hash_format . $salt;
+ $hash = crypt($password,$format_and_salt);
+ return $hash;
+
+}
+
+function generate_salt($length){
+  // not 100% unique not 100% random but good enugh for a salts
+  // md5 return 32 character
+  $unique_randome_string = md5(uniqid(mt_rand(),true));
+
+  // valid character for a salt are [a-zA-Z0-9./]
+  $base64_string = base64_encode($unique_randome_string);
+
+  // but not '+' which is valid in base64 encoding
+  $modified_base64_string = str_replace('+','-',$base64_string);
+
+  //Truncate string to the correct length
+   $salt = substr($modified_base64_string, 0 , $length);
+
+   return $salt;
+}
+
+function password_check($password,$existing_hash){
+$hash = crypt($password, $existing_hash);
+if($hash === $existing_hash){
+  return true;
+}else {
+  return false;
+}
+}
+
 ?>

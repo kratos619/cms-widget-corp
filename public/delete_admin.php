@@ -15,7 +15,7 @@ $current_admin = find_admin_by_id($_GET["id"]);
 $admin_set = find_all_admins();
 if(mysqli_num_rows($admin_set) > 0){
     $_SESSION["message"] = "cant delete a subjects with pages";
-      redirect_to("manage_admin.php?id={$admin["id"]}");
+      redirect_to("manage_admin.php?id={$admin_set["id"]}");
 
 }
 $id = $admin["id"];

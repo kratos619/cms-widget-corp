@@ -38,6 +38,9 @@ require_once("../include/functions.php"); ?>
 </table>
 <br>
 <a href="new_admin.php"> Add New Admin</a>
+<br>
+<br>
+
 </div>
 </div>
 <?php include("../include/layouts/footer.php"); ?>
